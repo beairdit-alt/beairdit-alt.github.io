@@ -1,49 +1,468 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Beaird IT</title>
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #111;
-            color: #00ffcc;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 48px;
-        }
-        .box {
-            background: #222;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beaird IT | Instructor • Labs • Cyber & Networking</title>
+  <meta name="description" content="Beaird IT portfolio: NSS + NSA instruction, pfSense/Aruba/AD labs, cybersecurity and networking training, and AI-powered Canvas learning experiences." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1621;
+      --panel2:#0c121b;
+      --text:#e8eef7;
+      --muted:#a9b4c4;
+      --line:#1c2a3a;
+      --accent:#00ffcc;
+      --accent2:#5aa9ff;
+      --warn:#ffd166;
+      --ok:#7CFF8A;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(0,255,204,.12), transparent 55%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(90,169,255,.12), transparent 50%),
+                  linear-gradient(180deg, #06090d, var(--bg));
+      color:var(--text);
+      letter-spacing:.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{width:90%; margin:0 auto; padding:24px 0 60px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:10px 0 18px; border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:44px; height:44px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(0,255,204,.22), rgba(90,169,255,.18));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      font-weight:800;
+      color:var(--accent);
+    }
+    .brand h1{font-size:16px; margin:0}
+    .brand p{margin:2px 0 0; color:var(--muted); font-size:12px}
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .chip{
+      padding:9px 12px; border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      font-size:13px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .chip:hover{transform: translateY(-1px); border-color: rgba(0,255,204,.35); background: rgba(0,255,204,.06); color:var(--text);}
+
+    .hero{
+      display:grid; grid-template-columns: 1.35fr .65fr;
+      gap:18px; padding:26px 0 10px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card.pad{padding:18px}
+    .glowline{
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(0,255,204,.6), rgba(90,169,255,.6), transparent);
+      opacity:.9;
+    }
+    .hero-title{
+      font-size:40px; line-height:1.05; margin:0;
+      letter-spacing:.4px;
+    }
+    .hero-title span{color:var(--accent)}
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:15px; line-height:1.5;
+      max-width: 80ch;
+    }
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(0,255,204,.35); background: rgba(0,255,204,.07);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(0,255,204,.18), rgba(90,169,255,.14));
+      border-color: rgba(0,255,204,.25);
+    }
+    .kpi{
+      display:grid; grid-template-columns: repeat(2,1fr);
+      gap:10px;
+    }
+    .kpi .mini{
+      padding:14px;
+      border-radius:16px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .mini .big{font-size:20px; font-weight:900; color:var(--accent); margin:0}
+    .mini .small{margin:4px 0 0; color:var(--muted); font-size:12px; line-height:1.3}
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+    }
+    .section-title{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:10px;
+    }
+    .section-title h2{margin:0; font-size:16px}
+    .section-title p{margin:0; color:var(--muted); font-size:12px}
+    .list{margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.5; font-size:13px}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .tag{
+      font-size:12px; color:var(--text);
+      padding:7px 10px; border-radius:999px;
+      background: rgba(0,255,204,.07);
+      border:1px solid rgba(0,255,204,.18);
+    }
+    .tag.alt{
+      background: rgba(90,169,255,.07);
+      border-color: rgba(90,169,255,.18);
+    }
+    .tag.warn{
+      background: rgba(255,209,102,.08);
+      border-color: rgba(255,209,102,.20);
+      color: #ffe7b3;
+    }
+
+    .two{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;
+      margin-top:14px;
+    }
+
+    .project{
+      display:grid; grid-template-columns: 1fr auto;
+      gap:10px; align-items:start;
+      padding:14px;
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      margin-top:10px;
+    }
+    .project h3{margin:0; font-size:14px}
+    .project p{margin:6px 0 0; color:var(--muted); font-size:12.5px; line-height:1.45}
+    .badge{
+      font-size:11px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .footer{
+      margin-top:22px;
+      padding:16px;
+      border-top:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr}
+      .grid{grid-template-columns:1fr}
+      .two{grid-template-columns:1fr}
+      .hero-title{font-size:34px}
+      .kpi{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 520px){
+      .kpi{grid-template-columns:1fr}
+      .hero-title{font-size:30px}
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">BI</div>
+        <div>
+          <h1>Beaird IT</h1>
+          <p>Networking • Cybersecurity • Labs • Instruction</p>
+        </div>
+      </div>
 
-    <h1>Beaird IT</h1>
-    <h2>Network & Cyber Professional</h2>
-
-    <div class="box">
-        <h3>Certifications</h3>
-        <p>CompTIA A+</p>
-        <p>Network+</p>
-        <p>Security+</p>
+      <div class="nav">
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#labs">Labs</a>
+        <a class="chip" href="#teaching">Teaching</a>
+        <a class="chip" href="#tools">Tools</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
     </div>
 
-    <div class="box">
-        <h3>Projects</h3>
-        <p>Built pfSense Firewall Lab</p>
-        <p>Configured VLAN Network</p>
-        <p>Active Directory Setup</p>
+    <div class="hero">
+      <div class="card">
+        <div class="glowline"></div>
+        <div class="card pad">
+          <h1 class="hero-title">
+            Building <span>real-world</span> networking & cybersecurity skills — one lab at a time.
+          </h1>
+          <p class="subtitle">
+            I teach and build hands-on IT environments focused on employability: pfSense firewalls, Aruba switching, Active Directory,
+            VLAN segmentation, virtualization, troubleshooting, documentation, and certification-aligned training.
+          </p>
+
+          <div class="actions">
+            <a class="btn primary" href="#labs">🚀 View Lab Highlights</a>
+            <a class="btn" href="#teaching">🎓 Teaching Method</a>
+            <a class="btn" href="#contact">📬 Contact</a>
+          </div>
+
+          <div class="tags" style="margin-top:16px">
+            <span class="tag">pfSense</span>
+            <span class="tag">Aruba CX</span>
+            <span class="tag alt">Active Directory</span>
+            <span class="tag alt">VLANs / Trunks</span>
+            <span class="tag">Proxmox / VMs</span>
+            <span class="tag warn">Canvas + AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card pad">
+        <div class="section-title">
+          <h2>Quick Snapshot</h2>
+          <p>what I focus on</p>
+        </div>
+        <div class="kpi">
+          <div class="mini">
+            <p class="big">NSS + NSA</p>
+            <p class="small">Career-aligned instruction with labs, troubleshooting, and workflow habits.</p>
+          </div>
+          <div class="mini">
+            <p class="big">Cert Ready</p>
+            <p class="small">Skills mapped to industry expectations and certification-style practice.</p>
+          </div>
+          <div class="mini">
+            <p class="big">Hands-On</p>
+            <p class="small">Firewalls, switches, servers, VLANs, routing, and segmented networks.</p>
+          </div>
+          <div class="mini">
+            <p class="big">Documented</p>
+            <p class="small">Students learn to write clean configs, diagrams, and lab evidence.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="box">
-        <h3>Contact</h3>
-        <p>Email: your@email.com</p>
+    <div class="grid" id="about">
+      <div class="card pad">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>who I am</p>
+        </div>
+        <ul class="list">
+          <li>Instructor focused on practical networking and cybersecurity outcomes.</li>
+          <li>Builder of lab environments that simulate real enterprise systems.</li>
+          <li>Big on documentation, troubleshooting discipline, and professional habits.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Mentorship</span>
+          <span class="tag alt">Lab-Driven</span>
+          <span class="tag">Workflow</span>
+          <span class="tag alt">Employability</span>
+        </div>
+      </div>
+
+      <div class="card pad">
+        <div class="section-title">
+          <h2>What Employers Want</h2>
+          <p>what I train</p>
+        </div>
+        <ul class="list">
+          <li>What can you configure?</li>
+          <li>What problems can you solve?</li>
+          <li>What technologies have you touched?</li>
+          <li>Can you document your work?</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Initiative</span>
+          <span class="tag alt">Documentation</span>
+          <span class="tag">Problem Solving</span>
+          <span class="tag alt">Professional Presence</span>
+        </div>
+      </div>
+
+      <div class="card pad" id="tools">
+        <div class="section-title">
+          <h2>Tools I Use</h2>
+          <p>classroom stack</p>
+        </div>
+        <ul class="list">
+          <li>Canvas LMS modules, quizzes, and structured learning routines</li>
+          <li>NotebookLM, Gamma, Suno, InVideo, AI Comic tools</li>
+          <li>Packet capture demos, troubleshooting labs, and documentation practice</li>
+        </ul>
+        <div class="tags">
+          <span class="tag warn">AI-Enhanced</span>
+          <span class="tag alt">Canvas</span>
+          <span class="tag">Wireshark</span>
+          <span class="tag alt">Packet Tracer</span>
+        </div>
+      </div>
     </div>
 
+    <div class="two" id="labs">
+      <div class="card pad">
+        <div class="section-title">
+          <h2>Lab Highlights</h2>
+          <p>real configurations</p>
+        </div>
+
+        <div class="project">
+          <div>
+            <h3>Enterprise VLAN + Firewall Lab</h3>
+            <p>Segmented networks using VLANs and trunk ports. Routed and filtered traffic through pfSense. Documented addressing, gateways, and rules.</p>
+          </div>
+          <div class="badge">VLANs • pfSense • Trunks</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <h3>Active Directory Domain Services</h3>
+            <p>Built Windows Server services with authentication, policy structure, and clean organization. Emphasis on real admin workflow and documentation.</p>
+          </div>
+          <div class="badge">AD • DNS • DHCP</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <h3>Virtualization + Lab Infrastructure</h3>
+            <p>Developed repeatable environments for student learning using VMs and network segmentation—optimized for hands-on troubleshooting and evidence collection.</p>
+          </div>
+          <div class="badge">VMs • Proxmox • Labs</div>
+        </div>
+
+        <div class="actions" style="margin-top:12px">
+          <a class="btn" href="labs.html">🧪 Open Labs Page (Bonus)</a>
+          <a class="btn" href="#contact">📎 Add Resume Link</a>
+        </div>
+      </div>
+
+      <div class="card pad" id="teaching">
+        <div class="section-title">
+          <h2>Teaching Method</h2>
+          <p>how I run class</p>
+        </div>
+        <ul class="list">
+          <li>Read → Video lesson → Audio lesson</li>
+          <li>Student research discussion</li>
+          <li>Hands-on lab activity</li>
+          <li>Knowledge quiz</li>
+          <li>Fun activity / review game</li>
+        </ul>
+
+        <div class="section-title" style="margin-top:14px">
+          <h2>NSS Focus</h2><p>support workflow</p>
+        </div>
+        <ul class="list">
+          <li>PC builds, OS installs, imaging</li>
+          <li>Ticket documentation and customer communication</li>
+          <li>Structured troubleshooting steps</li>
+        </ul>
+
+        <div class="section-title" style="margin-top:14px">
+          <h2>NSA Focus</h2><p>network admin</p>
+        </div>
+        <ul class="list">
+          <li>VLAN configs, trunks, routing tables</li>
+          <li>Firewall rules and segmentation</li>
+          <li>Active Directory organization and admin habits</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid" id="contact" style="margin-top:14px">
+      <div class="card pad">
+        <div class="section-title">
+          <h2>Use This on Your Resume</h2>
+          <p>copy/paste</p>
+        </div>
+        <div class="project" style="margin-top:12px">
+          <div>
+            <h3>Portfolio Link</h3>
+            <p>Portfolio: https://beairdit-alt.github.io</p>
+          </div>
+          <div class="badge">Public Portfolio</div>
+        </div>
+        <p class="subtitle" style="margin-top:12px">
+          Tip: Add one line under it with your strongest lab (pfSense + VLAN segmentation, AD build, etc.).
+        </p>
+      </div>
+
+      <div class="card pad">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>make it easy</p>
+        </div>
+        <ul class="list">
+          <li>Email: <strong>your@email.com</strong> (replace this)</li>
+          <li>GitHub: <strong>github.com/beairdit-alt</strong></li>
+          <li>Location: Pensacola, FL (optional)</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Professional</span>
+          <span class="tag alt">Hireable</span>
+          <span class="tag">Documented</span>
+        </div>
+      </div>
+
+      <div class="card pad">
+        <div class="section-title">
+          <h2>Next Upgrade</h2>
+          <p>easy wins</p>
+        </div>
+        <ul class="list">
+          <li>Create <strong>labs.html</strong> and post screenshots + short writeups.</li>
+          <li>Add a downloadable resume PDF (resume.pdf).</li>
+          <li>Add links to demos (YouTube, GitHub repos, Canvas samples).</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="labs.html">➕ Create labs.html</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Beaird IT • Built with GitHub Pages</div>
+      <div>Tip: keep it updated—new labs = new proof.</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
